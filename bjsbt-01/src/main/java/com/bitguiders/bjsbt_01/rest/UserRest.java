@@ -13,7 +13,7 @@ import com.bitguiders.bjsbt_01.dataaccess.orm.UserORM;
 import com.bitguiders.bjsbt_01.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/userr")
 public class UserRest {
 	
 	@Autowired
