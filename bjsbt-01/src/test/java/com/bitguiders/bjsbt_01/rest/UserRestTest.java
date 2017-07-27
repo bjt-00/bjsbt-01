@@ -46,7 +46,7 @@ public class UserRestTest {
 	private UserService service;
 	
 	private UserORM expectedUser;
-
+	private Long userId;
 	private HttpMessageConverter mappingJackson2HttpMessageConverter;
 	 @Autowired
 	    void setConverters(HttpMessageConverter<?>[] converters) {
@@ -65,26 +65,44 @@ public class UserRestTest {
 		System.out.println("_-_-_-_-_-_-_-TEST CALLED_-_-_-_-_-_-_-_-_-");
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
 		
-		this.expectedUser = service.getUserById(new Long(2));
+		expectedUser = new UserORM();
+		expectedUser.setUserName("Amina");
+		expectedUser.setPhone("872-3");
 	}
+	@Test 
+	public void addUserTest() throws IOException, Exception{
+		System.out.println("_-_-_-_-_-_-_-POST USER REST TEST_-_-_-_-_-_-_-_-_-");
+		
+		mockMvc.perform(post("/user/add")
+                .content(this.json(expectedUser))
+                .contentType(contentType))
+                .andExpect(status().isOk());
+	}
+	@Test 
+	public void updateUserTest() throws IOException, Exception{
+		System.out.println("_-_-_-_-_-_-_-PUT USER REST TEST_-_-_-_-_-_-_-_-_-");
+		expectedUser.setUserName("Amina Kareem");
+		mockMvc.perform(put("/user/update")
+                .content(this.json(expectedUser))
+                .contentType(contentType))
+                .andExpect(status().isOk());
+	}
+
 	@Test
 	public void getUserTest() throws Exception{
-		System.out.println("_-_-_-_-_-_-_-GET USER REST TEST_-_-_-_-_-_-_-_-_-");
+		System.out.println("_-_-_-_-_-_-_-GET USER REST TEST_-_-_-_-_-_-_-_-_- id ="+expectedUser.getUserId());
 		System.out.println(expectedUser.getUserName());
-		
-		mockMvc.perform(get("/user/2"))
+		mockMvc.perform(get("/user/"+expectedUser.getUserId()))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.userName",is(expectedUser.getUserName())));
 	}
 	
 	@Test 
-	public void addUserTest() throws IOException, Exception{
-		UserORM user = new UserORM();
-		user.setUserName("Amina");
-		user.setPhone("872-3");
+	public void deleteUserTest() throws IOException, Exception{
+		System.out.println("_-_-_-_-_-_-_-DELETE USER REST TEST_-_-_-_-_-_-_-_-_-");
 		
-		mockMvc.perform(post("/user/add")
-                .content(this.json(user))
+		mockMvc.perform(delete("/user/delete")
+                .content(this.json(expectedUser))
                 .contentType(contentType))
                 .andExpect(status().isOk());
 	}

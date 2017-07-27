@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitguiders.bjsbt_01.dataaccess.orm.UserORM;
@@ -20,7 +19,7 @@ public class UserRest {
 	@Autowired
 	UserService service;
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET )
+	@RequestMapping(method=RequestMethod.GET )
 	public List<UserORM> getList(){
 		return service.getList();
 	}
@@ -33,6 +32,19 @@ public class UserRest {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public UserORM addUser(@RequestBody UserORM userOrm){
 		System.out.println("post called "+userOrm.getUserName());
+		return service.save(userOrm);
+	}
+
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
+	public UserORM updateUser(@RequestBody UserORM userOrm){
+		System.out.println("update called "+userOrm.getUserName());
+		service.update(userOrm);
+		return userOrm;
+	}
+	@RequestMapping(value="/delete", method=RequestMethod.DELETE)
+	public UserORM deleteUser(@RequestBody UserORM userOrm){
+		System.out.println("update called "+userOrm.getUserName());
+		service.delete(userOrm);
 		return userOrm;
 	}
 

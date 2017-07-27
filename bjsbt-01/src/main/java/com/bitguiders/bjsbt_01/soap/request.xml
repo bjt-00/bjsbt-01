@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gs:getUserRequest>
+         <gs:userId>2</gs:userId>
+      </gs:getUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
