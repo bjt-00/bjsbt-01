@@ -19,7 +19,8 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	UserService userService;
-	
+
+
 	@RequestMapping(method=RequestMethod.GET)
 	public String getUserList(Model model){
 		logger.debug("Total Users Found : "+userService.getList().size());

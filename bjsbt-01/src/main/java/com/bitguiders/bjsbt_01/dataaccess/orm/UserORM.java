@@ -4,12 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 @Entity
 public class UserORM {
 	public Long userId;
 	public String userName;
 	public String phone;
 	
+	
+	@JsonCreator
+    public UserORM() {
+    }
+
 	@Id
 	@GeneratedValue
 	public Long getUserId() {
