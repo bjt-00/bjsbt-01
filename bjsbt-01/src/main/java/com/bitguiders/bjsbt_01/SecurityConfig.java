@@ -9,16 +9,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// Authentication : User --> Roles
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		auth.inMemoryAuthentication().passwordEncoder(org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance()).withUser("user").password("pwd")
-				.roles("USER").and().withUser("admin").password("pwd")
-				.roles("USER", "ADMIN");
+		auth.inMemoryAuthentication().passwordEncoder(org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance())
+		.withUser("user").password("pwd").roles("USER").and()
+		.withUser("admin").password("pwd").roles("USER", "ADMIN");
 	}
 
 	// Authorization : Role -> Access
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers("/user/**")
-				.hasRole("USER").antMatchers("/**").hasRole("ADMIN").and()
-				.csrf().disable().headers().frameOptions().disable();
+		http.httpBasic().and().authorizeRequests()
+		.antMatchers("/","/home").permitAll().anyRequest().authenticated()
+		.antMatchers("/user/**").hasRole("USER")
+		.antMatchers("/**").hasRole("ADMIN").and()
+		.formLogin().loginPage("/login").permitAll().and()
+		.logout().permitAll().and()
+		.csrf().disable().headers().frameOptions().disable();
 	}
 
 }

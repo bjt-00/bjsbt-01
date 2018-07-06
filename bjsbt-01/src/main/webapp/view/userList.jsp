@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,9 @@
 <h1>Users List</h1>
 <jsp:include page="alert.jsp"/>
 <div class="row">
+ 		<form action="logout" method="post">
+            <input type="submit" value="Sign Out - ${pageContext.request.remoteUser}"  class="btn btn-default pull-right"/>
+        </form>
   <a href="<spring:url value="/user/add"/>" class="btn btn-default pull-right">New User</a>
 </div>
 <br>
