@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>Users List</title>
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css"/>
+ 
+		<script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div class="container">
+<h1>Users List</h1>
+
+<div class="listing Box">
+
+	<table id="example" class="display" cellspacing="0" width="100%">
+	<thead>
+	<tr>		
+		<th>Full Name</th>
+		<th>Phone</th>
+		<th>Operation</th>
+	</tr>	
+	</thead>
+	<tbody>
+		<tr ng-repeat="user in records">
+			<td>{{user.userName}}</td>
+			<td>{{user.phone}}</td>
+			<td>&nbsp;
+			<a href='user/edit.do?id={{user.userId}}'><span   class="glyphicon glyphicon-pencil"></span></a>
+			<a href='user/confirm.do?id={{user.userId}}' ><span   class="glyphicon glyphicon-remove"></span></a>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+</div>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get('http://localhost:8080/bjsbt-01/userr').
+        then(function(response) {
+            $scope.records = response.data;
+        });
+});
+</script>
+
+<script type="text/javascript">
+	// For demo to fit into DataTables site builder...
+	$('#example')
+		.removeClass( 'display' )
+		.addClass('table table-striped table-bordered');
+</script>
+
+</body>
+</html>

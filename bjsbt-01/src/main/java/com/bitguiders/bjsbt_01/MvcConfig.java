@@ -17,6 +17,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/home").setViewName("home");
         registry.addViewController("/user").setViewName("user");
+        registry.addViewController("/view").setViewName("user");
         registry.addViewController("/").setViewName("user");
         registry.addViewController("/login").setViewName("login");
     }
@@ -24,7 +25,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/view/");
-		resolver.setSuffix(".jsp");
+		resolver.setSuffix(".html");
 		return resolver;
 	}
 
