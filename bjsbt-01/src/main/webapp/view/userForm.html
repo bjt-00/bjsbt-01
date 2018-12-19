@@ -14,7 +14,6 @@
 <h1>${action} User</h1>
 <!-- jsp:include page="alert.html"/-->
 		<form method="post" action="${action}" class="form-group">
-
 				<errors path="*" cssClass="alert alert-danger" element="div"/>
 					<input type="hidden" name="userId"/>
 				  <div class="form-group">
@@ -38,7 +37,7 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
 	var id=2;
 	
-    $http.get('http://localhost:8080/bjsbt-01/userr/'+id).
+    $http.get('https://localhost:8443/bjsbt-01/userr/'+id).
         then(function(response) {
             $scope.user = response.data;
         });

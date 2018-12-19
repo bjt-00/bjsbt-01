@@ -21,7 +21,7 @@ public class UserService {
 			return dao.findAll();
 		}
 		public UserORM getUserById(Long userId){
-			return dao.findOne(userId);
+			return dao.findById(userId).get();
 		}
 		
 		public UserORM save(UserORM userOrm){
